@@ -1,1 +1,7 @@
-console.log("Hola abdius");
+fetch('csvjson.json')
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
