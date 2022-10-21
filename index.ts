@@ -3,4 +3,6 @@ import Sales from './src/Sales.ts';
 
 const sale = new Sales(csvjson);
 
-console.log(sale.getSales());
+// console.log(sale.getSales().length);
+
+console.log(sale.groupBy('zone'));

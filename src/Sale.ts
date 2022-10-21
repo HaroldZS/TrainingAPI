@@ -1,14 +1,8 @@
-type ParamKey = { key: "zone" | "store" | "salesman" | "salesdate" }
-interface Param {
-    zone: string, 
-    strore: string, 
-    salesman: string, 
-    salesdate: string
-}
+import { Saletype } from './CustomType.ts';
 
 export default class Sale {
 
-    public zone: string;
+    private zone: string;
     private store: string;
     private salesman: string;
     private salesdate: string;
@@ -20,8 +14,8 @@ export default class Sale {
         this.salesdate = salesdate;
     }
 
-    public getBy(key: keyof Param): string{
-        const options: Param = {
+    public getBy(key: keyof Saletype): string{
+        const options: Saletype = {
             zone: this.zone, 
             strore: this.store, 
             salesman: this.salesman, 
