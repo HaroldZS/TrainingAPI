@@ -5,9 +5,14 @@ export type Csvtype = {
     "Date": string
 }
 
-export type Salerestype = {
+export type Shoptype = {
     param: string,
     sales: number
+}
+
+export type Salerestype = {
+    group:Array<Shoptype>,
+    totalsales: number
 }
 
 export type Saletype = {
@@ -17,6 +22,8 @@ export type Saletype = {
     salesdate: string
 }
 
-export type ParamKey = { 
-    key: "zone" | "store" | "salesman" | "salesdate"
+export type Avgtype = {
+    param: string,
+    sales: number,
+    avg: string
 }

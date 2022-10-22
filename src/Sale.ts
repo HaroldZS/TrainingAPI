@@ -14,6 +14,10 @@ export default class Sale {
         this.salesdate = salesdate;
     }
 
+    public getYear(): number{
+        return Number(this.salesdate.split('/')[2]);
+    }
+
     public getBy(key: keyof Saletype): string{
         const options: Saletype = {
             zone: this.zone, 

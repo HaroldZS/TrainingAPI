@@ -1,4 +1,4 @@
-import { Csvtype, Saletype, Salerestype } from './CustomType.ts';
+import { Csvtype, Saletype, Salerestype, Avgtype, Shoptype } from './CustomType.ts';
 import Sale from './Sale.ts';
 
 
@@ -14,19 +14,65 @@ export default class Sales {
         return this.listSale;
     }
 
-    public groupBy(key: keyof Saletype): Array<Salerestype> {
-        const params: Array<string> = this.paramsBy(key);
+    public avgZone(): Array<Avgtype> {
+        const {group, totalsales}: Salerestype = this.groupBy('zone', 2020, 2022);
+        return group.map((item) => {
+            const avg: string = (100*(item.sales / totalsales)).toFixed(2)+"%";
+            return {...item, avg};
+        });
+    }
 
-        const res = params.map((param) => {
+    public closeShop(): Array<Shoptype> {
+        const {group}: Salerestype = this.groupBy('strore', 2020, 2022);
+        const minSale = group.sort((a, b) => a.sales - b.sales)[0].sales;
+        return group.filter((item) => item.sales === minSale);
+    }
+
+    public betterSalesMan(): Array<Shoptype> {
+        const {group}: Salerestype = this.groupBy('salesman', 2021, 2021);
+        const maxSale = group.sort((a, b) => b.sales - a.sales)[0].sales;
+        return group.filter((item) => item.sales === maxSale);
+    }
+
+    public worseSalesMan(): Array<Shoptype> {
+        const {group}: Salerestype = this.groupBy('salesman', 2021, 2021);
+        const minSale = group.sort((a, b) => a.sales - b.sales)[0].sales;
+        return group.filter((item) => item.sales === minSale);
+    }
+
+    public statuSalesMan(promoted: boolean): Array<Shoptype> {
+        const {group}: Salerestype = this.groupBy('salesman', 2020, 2022);
+        const minSale = group.sort((a, b) => a.sales - b.sales)[0].sales;
+        const maxSale = group.sort((a, b) => b.sales - a.sales)[0].sales;
+
+        if(promoted){
+            return group.filter((item) => item.sales === maxSale);
+        }else{
+            return group.filter((item) => item.sales === minSale);
+        }
+    }
+
+    private groupBy(key: keyof Saletype, year_ini: number, year_limit: number): Salerestype {
+        const params: Array<string> = this.paramsBy(key);
+        let totalSaleCount = 0;
+
+        const group = params.map((param) => {
             let saleCount = 0;
+            
             this.listSale.forEach((item) => {
-                if(param === item.getBy(key)){
+                if(
+                    param === item.getBy(key) &&
+                    item.getYear() >= year_ini &&
+                    item.getYear() <= year_limit
+                ){
+                    totalSaleCount++;
                     saleCount++;
                 }
             });
             return { param, "sales": saleCount }
         });
-        return res;
+
+        return {group, totalsales: totalSaleCount};
     }
 
     private paramsBy(key: keyof Saletype): Array<string> {
