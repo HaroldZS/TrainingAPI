@@ -21,7 +21,7 @@ export default class Sale {
     public getBy(key: keyof Saletype): string{
         const options: Saletype = {
             zone: this.zone, 
-            strore: this.store, 
+            store: this.store, 
             salesman: this.salesman, 
             salesdate: this.salesdate
         }

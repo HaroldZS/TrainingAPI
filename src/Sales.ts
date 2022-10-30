@@ -23,7 +23,7 @@ export default class Sales {
     }
 
     public closeShop(): Array<Shoptype> {
-        const {group}: Salerestype = this.groupBy('strore', 2020, 2022);
+        const {group}: Salerestype = this.groupBy('store', 2020, 2022);
         const minSale = group.sort((a, b) => a.sales - b.sales)[0].sales;
         return group.filter((item) => item.sales === minSale);
     }

@@ -17,7 +17,7 @@ export type Salerestype = {
 
 export type Saletype = {
     zone: string, 
-    strore: string, 
+    store: string, 
     salesman: string, 
     salesdate: string
 }
