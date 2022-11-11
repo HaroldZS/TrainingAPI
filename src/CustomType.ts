@@ -1,29 +1,30 @@
-export type Csvtype = {
+export interface Csvjson {
     "Zone": string,
     "Store": string,
     "Salesman name": string,
     "Date": string
 }
 
-export type Shoptype = {
-    param: string,
-    sales: number
+export interface SelectMethod {
+    "zone": string,
+    "store": string,
+    "salesman": string,
 }
 
-export type Salerestype = {
-    group:Array<Shoptype>,
-    totalsales: number
+export interface ResType {
+    "title": string | undefined, 
+    "sales": number ,
+    "year": number | undefined
 }
 
-export type Saletype = {
-    zone: string, 
-    store: string, 
-    salesman: string, 
-    salesdate: string
+export interface GroupType {
+    "group": Array<ResType>,
+    "totalSales": number
 }
 
-export type Avgtype = {
-    param: string,
-    sales: number,
-    avg: string
+export interface AvgType {
+    "title": string | undefined, 
+    "sales": number | undefined,
+    "year": number | undefined,
+    "avg": number | undefined
 }

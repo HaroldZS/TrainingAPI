@@ -1,31 +1,27 @@
-import { Saletype } from './CustomType.ts';
+export class Sale{
 
-export default class Sale {
+    constructor(
+        private zone: string,
+        private store: string,
+        private salesman: string,
+        private date: string
+    ){}
 
-    private zone: string;
-    private store: string;
-    private salesman: string;
-    private salesdate: string;
- 
-    constructor(zone: string, store: string, salesman: string, salesdate: string){
-        this.zone = zone;
-        this.store = store;
-        this.salesman = salesman;
-        this.salesdate = salesdate;
+    public getZone(): string {
+        return this.zone;
     }
 
-    public getYear(): number{
-        return Number(this.salesdate.split('/')[2]);
+    public getStore(): string {
+        return this.store;
     }
 
-    public getBy(key: keyof Saletype): string{
-        const options: Saletype = {
-            zone: this.zone, 
-            store: this.store, 
-            salesman: this.salesman, 
-            salesdate: this.salesdate
-        }
-        return options[key] || "undefined";
+    public getSalesMan(): string {
+        return this.salesman;
+    }
+
+    public getYear(): number {
+        const [, , year] = this.date.split('/');
+        return Number(year);
     }
 
 }
