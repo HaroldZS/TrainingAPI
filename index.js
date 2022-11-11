@@ -53,12 +53,6 @@ function inciso1(){
             }
             console.log("El total es: " + total);
 
-            //console.log("Total Sur: " + ZonaS);
-            //console.log("Total Norte: " + ZonaN);
-            //console.log("Total Central: " + ZonaC);
-            //console.log("Total Este: " + ZonaE);
-            //console.log("Total Oeste: " + ZonaO);
-
             console.log("%Sur: " + ((ZonaS/total)*100).toFixed(2) + "%");
             console.log("%Norte: " + ((ZonaN/total)*100).toFixed(2) + "%");
             console.log("%Central: " + ((ZonaC/total)*100).toFixed(2) + "%");
