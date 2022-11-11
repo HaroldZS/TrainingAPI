@@ -65,8 +65,8 @@ const arrData2021 = [...arrData].filter(item => item.Date.includes('2021'));
 
 const vendedores = [];
 for(let i=0; i < arrData2021.length; i++){
-    if(!vendedores.includes(arrData[i]['Salesman name'])){
-        vendedores.push(arrData[i]['Salesman name']);
+    if(!vendedores.includes(arrData2021[i]['Salesman name'])){
+        vendedores.push(arrData2021[i]['Salesman name']);
     }
 }
 
@@ -111,3 +111,51 @@ for(let i=0; i < inciso3.length; i++){
 console.table(peores);
 
 // fin inciso 4
+
+
+//Inciso 5 - promovido o despedido segun promedio de ventas del 2020 al 2022
+// Ej. pqq353 2020: 19, 2021: 24, 2022: 105, promedio: 49,33
+console.log("----------------------------------- INCISO 5 -----------------------------------");
+
+const arrRango = [...arrData].filter(item => (item.Date.includes('2020') || item.Date.includes('2021') || item.Date.includes('2022')));
+
+const vendedoresRango = [];
+for(let i=0; i < arrRango.length; i++){
+    if(!vendedoresRango.includes(arrRango[i]['Salesman name'])){
+        vendedoresRango.push(arrRango[i]['Salesman name']);
+    }
+}
+
+let rangoVentas = [];
+for(let i=0; i < vendedoresRango.length; i++){
+    const nuevoRango2020 = arrRango.filter(item =>  item.Date.includes('2020') && item['Salesman name'] === vendedoresRango[i]);
+    const nuevoRango2021 = arrRango.filter(item =>  item.Date.includes('2021') && item['Salesman name'] === vendedoresRango[i]);
+    const nuevoRango2022 = arrRango.filter(item =>  item.Date.includes('2022') && item['Salesman name'] === vendedoresRango[i]);
+    rangoVentas.push({"Vendedor": vendedoresRango[i], "Ventas2020": nuevoRango2020.length, "Ventas2021": nuevoRango2021.length, "Ventas2022": nuevoRango2022.length, "Promedio": ((nuevoRango2020.length+nuevoRango2021.length+nuevoRango2022.length)/3).toFixed(2)});
+}
+
+const inciso5 = [...rangoVentas].sort((a,b)=> a.Promedio - b.Promedio);
+console.table(inciso5);
+
+const minPromedio = inciso5[0].Promedio;
+const maxPromedio = inciso5[inciso5.length-1].Promedio;
+
+const promovidos = [];
+const despedidos = [];
+
+for(let i=0; i < inciso5.length; i++){
+    if(inciso5[i].Promedio == maxPromedio){
+    promovidos.push({"Vendedor":inciso5[i].Vendedor});
+    }
+    if(inciso5[i].Promedio == minPromedio){
+        despedidos.push({"Vendedor":inciso5[i].Vendedor});
+    }
+}
+
+console.log("Los vendedores promovidos son:");
+console.table(promovidos);
+
+console.log("Los vendedores despedidos son:");
+console.table(despedidos);
+
+// fin inciso 5
