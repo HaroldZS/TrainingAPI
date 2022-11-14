@@ -38,10 +38,11 @@ export class Solution {
      */
     private avgZone(): Array<AvgType>{
         const { group, totalSales } = this.collection.groupBy('zone', 2020, 2022);
+        console.log(totalSales);
         return group.map((item) => {
             return {
                 ...item,
-                "avg": Number((item.sales / totalSales).toFixed(2)) 
+                "avg": Number(((item.sales*100) / totalSales).toFixed(2)) 
             }
         });
     }
@@ -80,7 +81,7 @@ export class Solution {
     private promoteSaleMan(promote: boolean): Array<AvgType>{
         const { group, totalSales } = this.collection.groupBy('salesman', 2020, 2022);
         
-        const collection = group.map((item) => ({...item, "avg": Number((item.sales / totalSales).toFixed(2))}));
+        const collection = group.map((item) => ({...item, "avg": Number(((item.sales*100) / totalSales).toFixed(2))}));
         const avg = collection.sort((a, b) => {
             return promote ? b.sales - a.sales : a.sales - b.sales;
         })[0].avg;
