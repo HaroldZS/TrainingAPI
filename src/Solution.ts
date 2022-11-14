@@ -38,7 +38,6 @@ export class Solution {
      */
     private avgZone(): Array<AvgType>{
         const { group, totalSales } = this.collection.groupBy('zone', 2020, 2022);
-        console.log(totalSales);
         return group.map((item) => {
             return {
                 ...item,
